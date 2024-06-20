@@ -7,9 +7,7 @@ import {
   withAuthenticator,
 } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import Image from "next/image";
 import { StorageImage } from "@aws-amplify/ui-react-storage";
-import { fetchUserAttributes, getCurrentUser } from "aws-amplify/auth";
 
 function ProtectedPage({ signOut }: WithAuthenticatorProps) {
   const [file, setFile] = React.useState<File>();
