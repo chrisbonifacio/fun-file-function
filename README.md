@@ -1,8 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Amplify Gen 2 - Fun, File, Function!
+
+This is a Next.js full-stack application with an auth and storage resource generated using Amplify Gen 2
 
 ## Getting Started
 
-First, run the development server:
+### Create a sandbox environment for local development
+
+```bash
+npx ampx sandbox
+```
+
+### Start the development server
 
 ```bash
 npm run dev
@@ -14,23 +22,27 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Storage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+https://docs.amplify.aws/react/build-a-backend/storage/
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Amplify Storage seamlessly integrates file storage and management capabilities into frontend web and mobile apps, built on top of Amazon Simple Storage Service (Amazon S3). It provides intuitive APIs and UI components for core file operations, enabling developers to build scalable and secure file storage solutions without dealing with cloud service complexities.
 
-## Learn More
+In this application, a Storage resource is configured with two paths. 
+- `"profile-pictures/{entity_id}/*"` Allow authenticated users to upload and own profile pictures and guest users to download them.
+- `"picture-submissions/*"`Allows both guest and authenticated users to read and write objects
 
-To learn more about Next.js, take a look at the following resources:
+### Functions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+https://docs.amplify.aws/react/build-a-backend/functions/
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Amplify Functions are powered by AWS Lambda, and allow you to perform a wide variety of customization through self-contained functions. Functions can respond to events from other resources, execute some logic in-between events like an authentication flow, or act as standalone jobs. They are used in a variety of settings and use cases:
 
-## Deploy on Vercel
+- Authentication flow customizations (e.g. attribute validations, allowlisting email domains)
+- Resolvers for GraphQL APIs
+- Handlers for individual REST API routes, or to host an entire API
+- Scheduled jobs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In this application, we created an onUpload and onDelete trigger for the Storage resource.
+The Lambda trigger logic will log the record keys/paths to CloudWatch Logs.
+To confirm the Lambda is being triggered, please navigate to the CloudWatch Logs, search for your Lambda's log group, and check the logs.
