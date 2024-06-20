@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { downloadData, getUrl, uploadData } from "aws-amplify/storage";
+import { uploadData } from "aws-amplify/storage";
 import {
   WithAuthenticatorProps,
   withAuthenticator,
