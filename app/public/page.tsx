@@ -24,12 +24,12 @@ function ProtectedPage() {
             if (file) {
               const path = `picture-submissions/${file.name}`;
 
-              await uploadData({
+              const result = await uploadData({
                 path,
                 data: file,
-              });
+              }).result;
 
-              setImagePath(path);
+              setImagePath(result.path);
             }
           }}
         >
@@ -42,12 +42,16 @@ function ProtectedPage() {
               if (file) {
                 const path = `profile-pictures/test/${file.name}`;
 
-                await uploadData({
-                  path,
-                  data: file,
-                });
+                try {
+                  const result = await uploadData({
+                    path,
+                    data: file,
+                  }).result;
 
-                setImagePath(path);
+                  setImagePath(result.path);
+                } catch (error) {
+                  console.error(error);
+                }
               }
             }}
           >
